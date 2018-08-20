@@ -3,11 +3,11 @@ jobs:
   checkout_code:
     docker:
       - image: circleci/node:latest
-    working_directory: ~/circleci-deployment
+    working_directory: ~/felinefolia-react
     steps:
       - checkout
       - attach_workspace:
-          at: ~/circleci-deployment
+          at: ~/felinefolia-react
       - restore_cache:
           keys:
             - yarn-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
