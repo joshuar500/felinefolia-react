@@ -79,10 +79,11 @@ jobs:
       - image: circleci/node:latest
     working_directory: ~/felinefolia-react
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "fd:cc:de:48:c6:21:94:bb:6d:bc:71:ef:9a:52:e5:bb"
       - attach_workspace:
           at: ~/felinefolia-react
-      - run: yarn install
-      - run: sudo yarn global add now
       - deploy:
           name: Deploy & Alias.
           command: |
@@ -93,8 +94,14 @@ jobs:
               now build -t ${NOW_TOKEN} -n=felinefolia-react --static
               now -t ${NOW_TOKEN} alias felinefolia-react-alpha.now.sh
             elif [ "${CIRCLE_BRANCH}" == "master" ]; then
-              now build -t ${NOW_TOKEN} -n=felinefolia-react --static
-              now -t ${NOW_TOKEN} alias felinefolia-react-beta.now.sh
+              echo "Building Master Branch!"
+              ssh ${SSH_USER}@${SSH_SERVER}
+              cd ~/felinefolia-react
+              git fetch
+              git pull
+              npm install
+              npm build
+              pm2 serve build
             else
               echo "This failed miserably!"
             fi
