@@ -1,0 +1,13 @@
+/* .hero {
+  height: 100vh;
+} */
+.hero.is-light {
+  background: #fff;
+}
+.hero-body.homepage-bg {
+  background: url('../img/felinefolia.jpg') right no-repeat;
+}
+
+img.cta-plant {
+  height: 200px;
+}
