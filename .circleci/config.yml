@@ -87,12 +87,6 @@ jobs:
       - run:
            name: Add FelineFolia to known hosts
            command: ssh-keyscan -H ${SSH_SERVER} >> ~/.ssh/known_hosts
-      - run: ssh ${SSH_USER}@${SSH_SERVER}
-      - run: cd ~/felinefolia-react
-      - run: git fetch
-      - run: git pull
-      - run: npm install
-      - run: npm build
       - deploy:
           name: Deploy & Alias.
           command: |
@@ -104,7 +98,7 @@ jobs:
               now -t ${NOW_TOKEN} alias felinefolia-react-alpha.now.sh
             elif [ "${CIRCLE_BRANCH}" == "master" ]; then
               echo "Building Master Branch!"
-              pm2 serve build
+              ssh ${SSH_USER}@${SSH_SERVER} 'git -c ~/felinefolia-react pull origin master && npm install && npm build && pm2 serve build'```
             else
               echo "This failed miserably!"
             fi
