@@ -1,20 +1,20 @@
 build:
     docker:
       - image: circleci/node:latest
-    working_directory: ~/circleci-deployment
+    working_directory: ~/felinefolia-react
     steps:
       - attach_workspace:
-          at: ~/circleci-deployment
+          at: ~/felinefolia-react
       - run: yarn install
       - run:
           name: yarn build
           command: |
             if [ "${CIRCLE_BRANCH}" == "production" ]; then
-              CI=true PUBLIC_URL=https://circleci-deployment-production.now.sh yarn build
+              CI=true PUBLIC_URL=https://felinefolia.com yarn build
             elif [ "${CIRCLE_BRANCH}" == "development" ]; then
-              CI=true PUBLIC_URL=https://circleci-deployment-alpha.now.sh yarn build
+              CI=true PUBLIC_URL=https://felinefolia.com yarn build
             elif [ "${CIRCLE_BRANCH}" == "master" ]; then
-              CI=true PUBLIC_URL=https://circleci-deployment-beta.now.sh yarn build
+              CI=true PUBLIC_URL=https://felinefolia.com yarn build
             else
               echo "This failed miserably!"
             fi

@@ -1,0 +1,18 @@
+test_and_report:
+    docker:
+      - image: circleci/node:latest
+    working_directory: ~/felinefolia-react
+    steps:
+      - attach_workspace:
+          at: ~/felinefolia-react
+      - run: yarn install
+      - run: CI=true yarn test:coverage
+      - run: yarn reportCoverage
+      - store_artifacts:
+          path: ./coverage/clover.xml
+          prefix: tests
+      - store_artifacts:
+          path: coverage
+          prefix: coverage
+      - store_test_results:
+          path: ./coverage/clover.xml

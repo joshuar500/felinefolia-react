@@ -1,0 +1,31 @@
+workflows:
+  version: 2
+  test_build_deploy:
+    jobs:
+      - checkout_code
+      - check_vulnerabilities:
+          requires:
+            - checkout_code
+      - test_and_report:
+          requires:
+            - checkout_code
+      - build:
+          requires:
+            - checkout_code
+          filters:
+            branches:
+              only:
+                - development
+                - master
+                - production
+      - deployment:
+          requires:
+            - check_vulnerabilities
+            - test_and_report
+            - build
+          filters:
+            branches:
+              only:
+                - development
+                - master
+                - production

@@ -1,0 +1,24 @@
+deployment:
+    docker:
+      - image: circleci/node:latest
+    working_directory: ~/felinefolia-react
+    steps:
+      - attach_workspace:
+          at: ~/felinefolia-react
+      - run: yarn install
+      - run: sudo yarn global add now
+      - deploy:
+          name: Deploy & Alias.
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "production" ]; then
+              now build -t ${NOW_TOKEN} -n=felinefolia-react --static
+              now -t ${NOW_TOKEN} alias felinefolia.com
+            elif [ "${CIRCLE_BRANCH}" == "development" ]; then
+              now build -t ${NOW_TOKEN} -n=circleci-deployment --static
+              now -t ${NOW_TOKEN} alias felinefolia-react-alpha.now.sh
+            elif [ "${CIRCLE_BRANCH}" == "master" ]; then
+              now build -t ${NOW_TOKEN} -n=felinefolia-react --static
+              now -t ${NOW_TOKEN} alias felinefolia.com
+            else
+              echo "This failed miserably!"
+            fi

@@ -1,0 +1,14 @@
+check_vulnerabilities:
+    docker:
+      - image: circleci/node:latest
+    working_directory: ~/felinefolia-react
+    steps:
+      - attach_workspace:
+          at: ~/felinefolia-react
+      - run: yarn install
+      - run: |
+            if [ "${CIRCLE_BRANCH}" == "production" ]; then
+              yarn validate:dependencies
+            else
+              yarn validate:dependencies || true
+            fi
