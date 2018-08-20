@@ -129,4 +129,4 @@ workflows:
               only:
                 - development
                 - master
-- production
+                - production
