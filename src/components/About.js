@@ -16,7 +16,7 @@ export function About(props) {
           </div>
           <div className="column">
             <h2 className="title is-2">About</h2>
-            <p>We deliver plants. We deliver care packages for your plants. We deliver seeds, soil, pots, magnets, and we work with loca business to deliver you the best possible products and healthiest plants for your home.</p>
+            <p>We deliver plants. We deliver care packages for your plants. We deliver seeds, soil, pots, magnets, and we work with local businesses to deliver you the best possible products and healthiest plants for your home.</p>
           </div>
         </div>
       </div>
