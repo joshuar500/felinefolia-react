@@ -98,7 +98,7 @@ jobs:
               now -t ${NOW_TOKEN} alias felinefolia-react-alpha.now.sh
             elif [ "${CIRCLE_BRANCH}" == "master" ]; then
               echo "Building Master Branch!"
-              ssh ${SSH_USER}@${SSH_SERVER} 'pm2 delete all && cd ~/felinefolia-react && git pull origin master && npm install && npm build && pm2 serve build --port 3000'
+              ssh ${SSH_USER}@${SSH_SERVER} 'pm2 delete all && cd ~/felinefolia-react && git pull origin master && npm install && npm run build && pm2 serve build --port 3000'
             else
               echo "This failed miserably!"
             fi
