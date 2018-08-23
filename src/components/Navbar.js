@@ -12,13 +12,13 @@ export function Navbar(props) {
           <Link to="/" className="navbar-item">
             <img src={logo} alt="Logo" />
           </Link>
-          <span className="navbar-burger burger" data-target="navbarMenuHeroB">
+          <span className="navbar-burger burger" data-target="navbarMenuHeroA">
             <span />
             <span />
             <span />
           </span>
         </div>
-        <div id="navbarMenuHeroB" className="navbar-menu">
+        <div id="navbarMenuHeroA" className="navbar-menu">
           <div className="navbar-end">
             <a href="/#about" className="navbar-item">
               about

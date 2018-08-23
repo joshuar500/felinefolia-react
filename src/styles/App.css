@@ -1,13 +1,58 @@
 /* .hero {
   height: 100vh;
 } */
-.hero.is-light {
-  background: #fff;
+
+body {
+  font-family: "Lato", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
-.hero-body.homepage-bg {
-  background: url('../img/felinefolia.jpg') right no-repeat;
+
+h1, h2, h3, h4, h5, .title {
+  font-family: "EB Garamond", serif;
+  font-style: italic;
 }
 
 img.cta-plant {
   height: 200px;
+}
+
+.hero.is-light {
+  background: #fff;
+}
+
+.hero-body.homepage-bg {
+  background: url("../img/felinefolia.jpg") right no-repeat;
+}
+
+#whatyouget {
+  margin-top: 7rem;
+}
+
+#whatyouget .title {
+  position: absolute;
+  top: -0.55rem;
+  left: 3rem;
+  text-transform: uppercase;
+  background-color: #fff;
+  font-style: normal;
+  font-family: "Lato", sans-serif;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  section {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .hero-body.homepage-bg {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: top right;
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0.7) 0%,rgba(255,255,255,0.7) 100%), url("../img/felinefolia.jpg");
+  }
+
+  .hero-body .title {
+    font-size: 2.4rem;
+  }
 }

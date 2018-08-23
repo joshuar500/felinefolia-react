@@ -4,23 +4,23 @@ import { Link } from 'react-router-dom';
 export function Hero(props) {
   if (props.fullHeight) {
     return (
-      <section className="hero is-light is-fullheight">    
+      <header className="hero is-light is-fullheight">    
         <div className="hero-body homepage-bg">
           <div className="container">
             <p className="title is-1">
-              Forecast for tonight: more plants.
+              Feline friendly plants and more<br /> delivered to your care. 
             </p>
             <p className="subtitle">
-              Get fun decorations, care packages, and plants delivered straight to your door.
+              Of course you don't think we're forgetting about your puppers. <span role="img" aria-label="doggo">🐕</span>
             </p>
             <Link to="/subscribe" className="button is-info">Signup for more updates</Link>
           </div>
         </div>
-      </section>
+      </header>
     );
   }
   return (
-    <section className="hero is-light">    
+    <header className="hero is-light">    
       <div className="hero-body">
         <div className="container has-text-centered">
           <p className="title is-3">
@@ -31,6 +31,6 @@ export function Hero(props) {
           </p>
         </div>
       </div>
-    </section>
+    </header>
   );
 }
