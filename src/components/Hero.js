@@ -24,10 +24,10 @@ export function Hero(props) {
       <div className="hero-body">
         <div className="container has-text-centered">
           <p className="title is-3">
-            Subscribe and get plants and more delivered to your door.
+            { props.title }
           </p>
           <p className="subtitle">
-            Sign up now to receive a 20% discount on your first 3 deliveries.
+            { props.subtitle }
           </p>
         </div>
       </div>
