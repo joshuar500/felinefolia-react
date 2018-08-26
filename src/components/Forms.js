@@ -8,13 +8,13 @@ export function RegisterForm(props) {
           <form onSubmit={props.handleSubmit}>
           <div className="field">
               <label className="label is-medium">Email</label>
-              <div className="control has-icons-left has-icons-right">
+              <div className="control">
                 <input name="email" className="input is-medium" type="email" placeholder="yourname@email.com" value={props.email} onChange={props.handleChange} />
               </div>
             </div>
             <div className="field">
               <label className="label is-medium">What would you like to see in your packages? (optional)</label>
-              <div className="control has-icons-left has-icons-right">
+              <div className="control">
                 <textarea name="optional" className="input is-medium" value={props.optional} onChange={props.handleChange} />
               </div>
             </div>
@@ -32,6 +32,32 @@ export function RegisterForm(props) {
               <br />
             </div>
             }
+            <button className="button is-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export function LoginForm(props) {
+  return (
+    <div className="container">
+      <div className="columns">
+        <div className="column is-half is-offset-one-quarter">
+          <form onSubmit={props.handleSubmit}>
+          <div className="field">
+              <label className="label is-medium">Email</label>
+              <div className="control">
+                <input name="email" className="input is-medium" type="email" placeholder="yourname@email.com" value={props.email} onChange={props.handleChange} />
+              </div>
+            </div>
+            <div className="field">
+              <label className="label is-medium">Password</label>
+              <div className="control">
+                <input type="password" name="optional" className="input is-medium" value={props.optional} onChange={props.handleChange} />
+              </div>
+            </div>
             <button className="button is-primary">Submit</button>
           </form>
         </div>

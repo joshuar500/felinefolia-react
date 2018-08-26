@@ -5,15 +5,21 @@ export function Hero(props) {
   if (props.fullHeight) {
     return (
       <header className="hero is-light is-fullheight">    
-        <div className="hero-body homepage-bg">
-          <div className="container">
-            <p className="title is-1">
-              Feline friendly plants and more<br /> delivered to your care. 
-            </p>
-            <p className="subtitle">
-              Of course you don't think we're forgetting about your puppers. <span role="img" aria-label="doggo">🐕</span>
-            </p>
-            <Link to="/subscribe" className="button is-info">Signup for more updates</Link>
+        <div className="hero-body">
+          <div className="container homepage-bg">
+            <div className="level">
+              <div className="level-left column is-half-desktop is-full-mobile">
+              <div className="">
+                <p className="title is-1 is-spaced">
+                  Pet friendly plants delivered to your door
+                </p>
+                <p className="subtitle">
+                  Feline Folia carefully packages and ships non-toxic, pet friendly plants so Fluffy, Mittens, and Dave don't get sick when they decide to chew on a leaf.
+                </p>
+                <Link to="/subscribe" className="button is-info">Get Started</Link>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </header>

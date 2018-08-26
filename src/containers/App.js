@@ -3,10 +3,11 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Homepage from './Homepage';
 import Subscribe from './Subscribe';
+import Login from './Login';
+import Dashboard from './Dashboard';
 
 import { navbarBurgerHelper } from '../helpers/navbar';
 
-import 'bulma/css/bulma.css'
 import '../styles/App.css';
 
 class App extends Component {
@@ -21,6 +22,8 @@ class App extends Component {
         <div>
           <Route exact path ="/" component={Homepage} />
           <Route path ="/subscribe" component={Subscribe} />
+          {/* <Route path ="/login" component={Login} /> */}
+          <Route path ="/dashboard" component={Dashboard} />
         </div>
       </Router>
     );
