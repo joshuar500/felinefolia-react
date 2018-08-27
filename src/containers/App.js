@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Homepage from './Homepage';
 import Subscribe from './Subscribe';
-import Login from './Login';
-import Dashboard from './Dashboard';
+// import Login from './Login';
+// import Dashboard from './Dashboard';
 
 import { navbarBurgerHelper } from '../helpers/navbar';
 
@@ -23,7 +23,7 @@ class App extends Component {
           <Route exact path ="/" component={Homepage} />
           <Route path ="/subscribe" component={Subscribe} />
           {/* <Route path ="/login" component={Login} /> */}
-          <Route path ="/dashboard" component={Dashboard} />
+          {/* <Route path ="/dashboard" component={Dashboard} /> */}
         </div>
       </Router>
     );
