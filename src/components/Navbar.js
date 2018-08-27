@@ -31,7 +31,7 @@ export function Navbar(props) {
             </a> */}
             <span className="navbar-item">
               <Link to="/subscribe" className="button is-light is-primary">
-                <span>SUBSCRIBE</span>
+                <span>Sign Up</span>
               </Link>
             </span>
           </div>
