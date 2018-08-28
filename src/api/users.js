@@ -17,3 +17,21 @@ export const preRegister = async (email, optional) => {
     console.log(error);
   }
 }
+
+export const login = async(email, password) => {
+  try {
+    const response = await request.post('/login', { username: email, password });
+    return await response;
+  } catch(error) {
+    console.log(error);
+  }
+}
+
+export const getAccount = async() => {
+  try {
+    const response = await request.get('/account', { withCredentials:true });
+    return await response;
+  } catch(error) {
+    console.log(error);
+  }
+}

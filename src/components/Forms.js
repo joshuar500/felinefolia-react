@@ -55,7 +55,7 @@ export function LoginForm(props) {
             <div className="field">
               <label className="label is-medium">Password</label>
               <div className="control">
-                <input type="password" name="optional" className="input is-medium" value={props.optional} onChange={props.handleChange} />
+                <input type="password" name="password" className="input is-medium" value={props.password} onChange={props.handleChange} />
               </div>
             </div>
             <button className="button is-primary">Submit</button>

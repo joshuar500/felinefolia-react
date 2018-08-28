@@ -5,12 +5,15 @@ import { Hero } from '../components/Hero';
 import { Footer } from '../components/Footer';
 import { LoginForm } from '../components/Forms';
 
+import { login } from '../api/users';
+
 class Login extends Component {
 
   state = {
     email: '',
     password: '',
     error: false,
+    loggedIn: false,
   }
 
   handleChange = (event) => {
@@ -24,6 +27,16 @@ class Login extends Component {
   }
 
   handleSubmit = (event) => {
+    login(this.state.email, this.state.password)
+      .then(res => {
+        console.log('res', res);
+        if (res.status !== 200) {
+          this.setState({ error: true });
+        } else {
+          this.setState({ loggedIn: true });
+        }
+      })
+      .catch(err => this.setState({ error: true }));
     event.preventDefault();
   }
 
@@ -36,12 +49,12 @@ class Login extends Component {
           subtitle=""
         />
         {
-          !this.state.preRegistered && !this.state.error &&
+          !this.state.loggedIn && !this.state.error &&
           <LoginForm
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
             email={this.state.email}
-            optional={this.state.optional}
+            password={this.state.password}
             hasBusiness={this.state.hasBusiness}
           />
         }
