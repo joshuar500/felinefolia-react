@@ -6,7 +6,7 @@ import { Footer } from '../components/Footer';
 import { LeftNavbar } from '../components/admin/LeftNavbar';
 import { Table } from '../components/shared/Table';
 
-import { getAccount } from '../api/users';
+import { getAccount, getUsers } from '../api/users';
 
 class Dashboard extends Component {
 
@@ -14,21 +14,37 @@ class Dashboard extends Component {
     profile: {},
     error: false,
     loggedIn: false,
+    users: null,
+  }
+
+  getAllUsers = () => {
+    getUsers()
+      .then(res => {
+        console.log('res', res);
+        if (res.status !== 200) {
+          this.setState({ error: true });
+        } else {
+          this.setState({ users: res.data });
+        }
+      });
   }
 
   componentDidMount() {
     // check if user is logged in
     getAccount()
       .then(res => {
-        console.log('res', res);
         if (res.status !== 200) {
           this.setState({ error: true });
-        } else {
-          this.setState({ loggedIn: true });
+        } else if (res) {
+          this.setState({
+            loggedIn: true,
+            profile: res.data
+          });
+          this.getAllUsers();
           console.log('user is currently logged in');
         }
       })
-      .catch(err => this.setState({ error: true }));
+      .catch(err => console.log('errrrr', err));
   }
 
   renderAdminDashboard = () => {
@@ -55,7 +71,7 @@ class Dashboard extends Component {
             <div className="level">
               <div className="level-left">
                 <div className="level-item">
-                  <div className="title has-text-primary"><i className="fa fa-tachometer"></i> Dashboard</div>
+                  <div className="title has-text-primary"><i className="fa fa-tachometer"></i> Users</div>
                 </div>
               </div>
               <div className="level-right">
@@ -67,7 +83,7 @@ class Dashboard extends Component {
               </div>
             </div>
 
-          <Table />
+          <Table id="users" data={this.state.users} />
           </main>
 
         </div>

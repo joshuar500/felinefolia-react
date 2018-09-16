@@ -35,3 +35,12 @@ export const getAccount = async() => {
     console.log(error);
   }
 }
+
+export const getUsers = async() => {
+  try {
+    const response = await request.get('/users', { withCredentials:true });
+    return await response;
+  } catch(error) {
+    console.log(error);
+  }
+}

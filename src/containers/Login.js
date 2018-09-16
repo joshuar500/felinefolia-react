@@ -34,6 +34,7 @@ class Login extends Component {
           this.setState({ error: true });
         } else {
           this.setState({ loggedIn: true });
+          this.props.history.push('dashboard');
         }
       })
       .catch(err => this.setState({ error: true }));
