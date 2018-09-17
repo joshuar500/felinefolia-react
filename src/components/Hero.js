@@ -11,7 +11,7 @@ export function Hero(props) {
               <div className="level-left column is-half-desktop is-full-mobile">
               <div className="">
                 <p className="title is-1 is-spaced">
-                  Pet friendly plants delivered to your door
+                  <span className="green-title">Pet friendly plants</span> delivered to your door
                 </p>
                 <p className="subtitle">
                   Feline Folia carefully packages and ships non-toxic, pet friendly plants so Fluffy, Mittens, and Dave don't get sick when they decide to chew on a leaf.

@@ -5,7 +5,10 @@ h1, h2, h3, h4, h5, .title {
   font-family: "EB Garamond", serif; }
 
 img.cta-plant {
-  height: 200px; }
+  height: 310px;
+  position: absolute;
+  bottom: 0;
+  right: 3rem; }
 
 .hero.is-light {
   background: #fff; }
@@ -16,6 +19,15 @@ img.cta-plant {
   height: 100%; }
   .homepage-bg .level {
     height: 100%; }
+
+.green-title {
+  color: #789F72; }
+
+.inner-cta {
+  padding-left: 1rem; }
+
+.kitty-houseplant {
+  height: 350px; }
 
 #whatyouget {
   margin-top: 7rem; }
@@ -35,10 +47,14 @@ img.cta-plant {
   section {
     padding-left: 1.5rem;
     padding-right: 1.5rem; }
-  .hero-body.homepage-bg {
+  img.cta-plant {
+    position: relative;
+    left: 0;
+    right: 0; }
+  .container.homepage-bg {
     background-size: contain;
     background-repeat: no-repeat;
-    background-position: top right;
+    background-position: 50% -50%;
     background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.7) 100%), url("../img/felinefolia.jpg"); }
   .hero-body .title {
     font-size: 2.4rem; } }

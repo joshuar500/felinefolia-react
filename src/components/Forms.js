@@ -15,13 +15,13 @@ export function RegisterForm(props) {
             <div className="field">
               <label className="label is-medium">What would you like to see in your packages? (optional)</label>
               <div className="control">
-                <textarea name="optional" className="input is-medium" value={props.optional} onChange={props.handleChange} />
+                <textarea name="optional" className="input is-medium" value={props.optional} onChange={props.handleChange} placeholder="planters, soil, gardening tools..." />
               </div>
             </div>
             <div className="field">
               <label className="checkbox">
                 <input type="checkbox" name="hasBusiness" checked={props.hasBusiness} onChange={props.handleChange} />
-                &nbsp; I own a business, boutique or LOVE plants so much I can prove it.
+                &nbsp;  ⬅️ If you run a plant related business, check this box (ignore if you just want plants!)
               </label>
             </div>
             { props.hasBusiness &&

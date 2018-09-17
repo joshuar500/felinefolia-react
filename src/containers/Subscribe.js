@@ -43,11 +43,11 @@ class Subscribe extends Component {
 
   render() {
     return (
-      <div id="subscribe">
+      <section id="subscribe">
         <Navbar />
         <Hero 
           title="Subscribe and get plants and more delivered to your door."
-          subtitle="Sign up now to receive a 20% discount on your first 3 deliveries."
+          subtitle="Sign up now to receive a 30% discount on your first delivery."
         />
         <div className="container">
         <div className="columns">
@@ -66,9 +66,11 @@ class Subscribe extends Component {
           {
             !this.state.preRegistered && !this.state.error &&
             <div className="column is-half is-offset-one-quarter">
-            <p>Hi! Thanks for considering us to deliver carefully packaged plants and all plant things.</p>
+            <p>Hi! Thanks for considering us to deliver carefully packaged plants and all plant related things.</p>
             <br />
-            <p>We still got a lot of ideas that we want to share with you. Right now, we're working on getting our blog setup so we can share those ideas. But we'd also like to hear from you. Let us know what you'd like to see in your packages and help us get to know what you're needs are.</p>
+            <p>We still got a lot of ideas that we want to share with you. Right now, we'd like to get feedback as to what you would like to see in your subscription packages. Let us know what you'd like to see in your packages and help us get to know what you're needs are.</p>
+            <br />
+            <p>As soon as we're ready to delivery some plants, we'll email you to get your account set up.</p>
             </div>
           }
         </div>
@@ -88,7 +90,7 @@ class Subscribe extends Component {
           &nbsp;
         </div>
         <Footer />
-      </div>
+      </section>
     );
   }
 }

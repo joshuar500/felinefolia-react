@@ -1,17 +1,17 @@
 import React from 'react';
 
-import cat from '../img/felinefolia_homepage_cat.png'
-import houseplant from '../img/felinefolia_homepage_houseplant.png';
+import catHouseplant from '../img/felinefolia_vickymingicottle_cat_houseplant.png'
 
 export function About(props) {
   return(
     <section id="about" className="bd-lead">
       <div className="container">
-        <div className="columns">
+        <div className="columns is-vcentered">
           <div className="column is-two-fifths">
             <div className="columns is-mobile">
-              <div className="column"><img src={cat} alt="Cool kitty" /></div>
-              <div className="column"><img src={houseplant} alt="Cool kitty" /></div>
+              <div className="column has-text-centered">
+                <img className="kitty-houseplant" src={catHouseplant} alt="Cool kitty with houseplant" />
+              </div>
             </div>
           </div>
           <div className="column">
