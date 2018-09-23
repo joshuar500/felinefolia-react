@@ -7,6 +7,7 @@ export function Footer(props) {
         <p>
           <strong>&copy; Feline Folia { new Date().getFullYear() }</strong> by <a href="http://joshrincon.com">Josh Rincon</a> &amp; <a>Cayla Ramirez</a>.
         </p>
+        <p>Questions? Comments? <a href="mailto:hello@felinefolia.com">hello@felinefolia.com</a></p>
       </div>
     </footer>
   );
