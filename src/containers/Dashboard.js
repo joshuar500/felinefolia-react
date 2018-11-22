@@ -17,14 +17,29 @@ class Dashboard extends Component {
     users: null,
   }
 
+  setAuth = (profile) => {
+    this.setState({
+      loggedIn: true,
+      profile
+    });
+    if (profile.role === 'admin') {
+      this.getAllUsers();
+    } else {
+      console.log('just a regular member');
+    }
+  }
+
   getAllUsers = () => {
     getUsers()
       .then(res => {
-        console.log('res', res);
-        if (res.status !== 200) {
-          this.setState({ error: true });
+        if (res) {
+          if (res.status !== 200) {
+            this.setState({ error: true });
+          } else {
+            this.setState({ users: res.data });
+          }
         } else {
-          this.setState({ users: res.data });
+          this.setState({ error: true });
         }
       });
   }
@@ -33,27 +48,20 @@ class Dashboard extends Component {
     // check if user is logged in
     getAccount()
       .then(res => {
-        if (res.status !== 200) {
-          this.setState({ error: true });
-        } else if (res) {
-          this.setState({
-            loggedIn: true,
-            profile: res.data
-          });
-          this.getAllUsers();
-          console.log('user is currently logged in');
+        if (res) {
+          if (res.status !== 200) {
+            this.setState({ error: true });
+          } else if (res) {
+            this.setAuth(res.data);
+          }
+        } else {
+          this.props.history.push('login');
         }
       })
-      .catch(err => console.log('errrrr', err));
+      .catch(err => this.setState({ error: true }));
   }
 
   renderAdminDashboard = () => {
-    return (
-      <div>This is the admin dashboard</div>
-    )
-  }
-
-  renderUserDashboard = () => {
     return (
       <div className="container">
         <div className="columns">
@@ -91,37 +99,54 @@ class Dashboard extends Component {
     )
   }
 
+  renderUserDashboard = () => {
+    return (
+      <div className="container">
+        <div className="columns">
+          <div className="column">
+            <progress class="progress is-primary" value="15" max="100">15%</progress>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   render() {
 
-    const { profile } = this.state;
+    const { profile, error } = this.state;
 
-    return (
-      <div id="login">
-        <Navbar />
-        <Hero 
-          title={`${profile.role === 'admin' ? 'Administration for' : 'Welcome back'}  ${profile.name || ''}`}
-          subtitle=""
-        />
-        {/* <div className="container">
-        <div className="columns">
-            <div className="column has-text-centered">
-            Your feline friendly plant is on the way.
-            </div>
-          </div>
+    if (error) {
+      return null;
+    } else {
+      return (
+        <div id="login">
+          <Navbar />
+          <Hero 
+            title={`${profile.role === 'admin' ? 'Admin Dashboard' : 'Your shipment is on the way'}  ${profile.name || ''}`}
+            subtitle=""
+          />
+          {/* <div className="container">
           <div className="columns">
-            <div className="column">
-              <progress className="progress is-primary" value="15" max="100">15%</progress>
+              <div className="column has-text-centered">
+              Your feline friendly plant is on the way.
+              </div>
             </div>
+            <div className="columns">
+              <div className="column">
+                <progress className="progress is-primary" value="15" max="100">15%</progress>
+              </div>
+            </div>
+          </div> */}
+          { profile.role === 'member' && this.renderUserDashboard() }
+          { profile.role === 'admin' && this.renderAdminDashboard() }
+          <div className="container">
+          {/* add a spacer */}
+            &nbsp;
           </div>
-        </div> */}
-        { this.renderUserDashboard() }
-        <div className="container">
-        {/* add a spacer */}
-          &nbsp;
+          <Footer />
         </div>
-        <Footer />
-      </div>
-    );
+      );
+    }
   }
 }
 

@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import { NavCta } from './NavCta';
 
 import logo from '../img/felinefolia_logo.png';
 
 export function Navbar(props) {
   return(
     <div className="hero-head">
+    <NavCta />
     <nav className="navbar">
       <div className="container">
         <div className="navbar-brand">
@@ -26,11 +28,11 @@ export function Navbar(props) {
             <a href="/#whatyouget" className="navbar-item">
               what you get
             </a>
-            {/* <a className="navbar-item">
+            <Link to="/login" className="navbar-item">
               login
-            </a> */}
+            </Link>
             <span className="navbar-item">
-              <Link to="/subscribe" className="button is-light is-primary">
+              <Link to="/signup" className="button is-light is-primary">
                 <span>Sign Up</span>
               </Link>
             </span>

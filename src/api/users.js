@@ -18,6 +18,15 @@ export const preRegister = async (email, optional) => {
   }
 }
 
+export const register = async (email, password) => {
+  try {
+    const response = await request.post('/register', { email, password });
+    return await response;
+  } catch(error) {
+    console.log(error);
+  }
+}
+
 export const login = async(email, password) => {
   try {
     const response = await request.post('/login', { username: email, password });

@@ -9,3 +9,9 @@ export const request = axios.create({
   },
   withCredentials: true,
 });
+
+request.interceptors.response.use((response) => {
+  return response;
+}, (error) => {
+  return error.response;
+})
