@@ -12,8 +12,25 @@ class Login extends Component {
   state = {
     email: '',
     password: '',
+    touched: {
+      email: false,
+      password: false
+    },
     error: false,
-    loggedIn: false,
+  }
+
+  validate = (email, password) => {
+    // true means invalid, so our conditions got reversed
+    return {
+      email: email.length === 0,
+      password: password.length === 0,
+    };
+  }
+
+  handleBlur = (field) => (evt) => {
+    this.setState({
+      touched: { ...this.state.touched, [field]: true },
+    });
   }
 
   handleChange = (event) => {
@@ -42,6 +59,17 @@ class Login extends Component {
   }
 
   render() {
+
+    const { email, password } = this.state;
+    const errors = this.validate(email, password);
+    const shouldMarkError = (field) => {
+      const hasError = errors[field];
+      const shouldShow = this.state.touched[field];
+
+      return hasError ? shouldShow : false;
+    };
+    const isEnabled = email.length > 0 && password.length > 0;
+
     return (
       <div id="login">
         <Navbar />
@@ -57,6 +85,9 @@ class Login extends Component {
             email={this.state.email}
             password={this.state.password}
             hasBusiness={this.state.hasBusiness}
+            isEnabled={isEnabled}
+            shouldMarkError={shouldMarkError}
+            handleBlur={this.handleBlur}
           />
         }
         <div className="container">

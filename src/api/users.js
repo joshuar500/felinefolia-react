@@ -1,4 +1,5 @@
 import { request } from './request';
+import { eraseCookie } from '../helpers/cookies';
 
 export const getContact = async () => {
   try {
@@ -6,15 +7,6 @@ export const getContact = async () => {
     return await response;
   } catch (error) {
     console.error(error);
-  }
-}
-
-export const preRegister = async (email, optional) => {
-  try {
-    const response = await request.post('/preregister', { email, optional });
-    return await response;
-  } catch(error) {
-    console.log(error);
   }
 }
 
@@ -30,6 +22,15 @@ export const register = async (email, password) => {
 export const login = async(email, password) => {
   try {
     const response = await request.post('/login', { username: email, password });
+    return await response;
+  } catch(error) {
+    console.log(error);
+  }
+}
+
+export const logout = async() => {
+  try {
+    const response = await request.put('/logout');
     return await response;
   } catch(error) {
     console.log(error);

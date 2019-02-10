@@ -6,6 +6,7 @@ import Homepage from './Homepage';
 import Subscribe from './Subscribe';
 import Signup from './Signup';
 import Login from './Login';
+import Logout from './Logout';
 import ResetPassword from './ResetPassword';
 import Dashboard from './Dashboard';
 
@@ -16,12 +17,16 @@ import '../styles/App.css';
 class App extends Component {
 
   state = {
-    stripe: null
+    stripe: null,
   }
 
   componentDidMount() {
     navbarBurgerHelper();
 
+    this.setStripeKey();
+  }
+
+  setStripeKey = () => {
     if (window.Stripe) {
       this.setState({stripe: window.Stripe('pk_test_8T6wzkJRI6xoB0JgPS9amKS6')});
     } else {
@@ -33,21 +38,25 @@ class App extends Component {
   }
 
   render() {
+
+    const { state } = this;
+
     return (
       <Router>
         <div>
-          <Route exact path ="/" component={Homepage} />
+          <Route exact path ="/" component={Homepage} props={{...state}} />
           
-          <StripeProvider stripe={this.state.stripe}>
+          <StripeProvider stripe={state.stripe}>
             <Elements>
-              <Route path ="/subscribe" component={Subscribe} />
+              <Route path ="/subscribe" component={Subscribe} props={{...state}} />
             </Elements>
           </StripeProvider>
 
-          <Route path ="/signup" component={Signup} />
-          <Route path ="/login" component={Login} />
-          <Route path ="/resetpassword" component={ResetPassword} />
-          <Route path ="/dashboard" component={Dashboard} />
+          <Route path ="/signup" component={Signup} props={{...state}} />
+          <Route path ="/login" component={Login} props={{...state}} />
+          <Route path ="/logout" component={Logout} props={{...state}} />
+          <Route path ="/resetpassword" component={ResetPassword} props={{...state}} />
+          <Route path ="/dashboard" component={Dashboard} props={{...state}} />
         </div>
       </Router>
     );

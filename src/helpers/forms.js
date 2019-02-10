@@ -50,3 +50,7 @@ export const stateAbbrs = [
   "WI",
   "WY",
 ]
+
+export function validateField(field, fieldType, validation, required) {
+  return null;
+}

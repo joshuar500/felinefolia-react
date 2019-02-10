@@ -17,17 +17,17 @@ class Dashboard extends Component {
     users: null,
   }
 
-  setAuth = (profile) => {
-    this.setState({
-      loggedIn: true,
-      profile
-    });
-    if (profile.role === 'admin') {
-      this.getAllUsers();
-    } else {
-      console.log('just a regular member');
-    }
-  }
+  // setAuth = (profile) => { //TODO: remove this function. taken care of in App.js
+  //   this.setState({
+  //     loggedIn: true,
+  //     profile
+  //   });
+  //   if (profile.role === 'admin') {
+  //     this.getAllUsers();
+  //   } else {
+  //     console.log('just a regular member');
+  //   }
+  // }
 
   getAllUsers = () => {
     getUsers()
@@ -44,22 +44,22 @@ class Dashboard extends Component {
       });
   }
 
-  componentDidMount() {
-    // check if user is logged in
-    getAccount()
-      .then(res => {
-        if (res) {
-          if (res.status !== 200) {
-            this.setState({ error: true });
-          } else if (res) {
-            this.setAuth(res.data);
-          }
-        } else {
-          this.props.history.push('login');
-        }
-      })
-      .catch(err => this.setState({ error: true }));
-  }
+  // componentDidMount() {
+  //   // check if user is logged in
+  //   getAccount() //TODO: remove this logic. taken care of in App.js
+  //     .then(res => {
+  //       if (res) {
+  //         if (res.status !== 200) {
+  //           this.setState({ error: true });
+  //         } else if (res) {
+  //           this.setAuth(res.data);
+  //         }
+  //       } else {
+  //         this.props.history.push('login');
+  //       }
+  //     })
+  //     .catch(err => this.setState({ error: true }));
+  // }
 
   renderAdminDashboard = () => {
     return (
