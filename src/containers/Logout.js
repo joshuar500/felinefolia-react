@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar } from '../components/Navbar';
-import { Hero } from '../components/Hero';
+
 
 import { logout } from '../api/users';
 

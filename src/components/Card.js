@@ -7,7 +7,7 @@ export function SubscriptionCard(props) {
       <div className="card-content">
         <div className="media">
           <div className="media-center">
-            <img src={plant} className="card-img"/>
+            <img src={plant} className="card-img" alt="houseplant"/>
           </div>
         </div>
       </div>

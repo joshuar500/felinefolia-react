@@ -1,5 +1,5 @@
 import { request } from './request';
-import { eraseCookie } from '../helpers/cookies';
+
 
 export const getContact = async () => {
   try {
