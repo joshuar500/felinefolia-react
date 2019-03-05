@@ -6,7 +6,7 @@ import { Footer } from '../components/Footer';
 import { LeftNavbar } from '../components/admin/LeftNavbar';
 import { Table } from '../components/shared/Table';
 
-import { getAccount, getUsers } from '../api/users';
+import { getUsers } from '../api/users';
 
 class Dashboard extends Component {
 
