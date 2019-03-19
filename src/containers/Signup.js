@@ -13,7 +13,8 @@ class Subscribe extends Component {
     email: '',
     password: '',
     passwordConfirm: '',
-    error: false
+    error: false,
+    errorMsg: ''
   }
 
   handleChange = (event) => {
@@ -31,7 +32,7 @@ class Subscribe extends Component {
     register(email, password).then((res) => {
       if (res) {
         if (res.status !== 200) {
-          this.setState({ error: true });
+          this.setState({ error: true, errorMsg: res.data.message });
         } else if (res) {
           this.props.history.push('subscribe');
         }
@@ -53,7 +54,7 @@ class Subscribe extends Component {
           {
             this.state.error &&
             <div className="column notification is-danger has-text-centered">
-              Oh no! Something went wrong. Please email us at <a href="mailto:hello@felinefolia.com">hello@felinefolia.com</a>
+              Oh no! Something went wrong. <code> {this.state.errorMsg}</code>  Please email us at <a href="mailto:hello@felinefolia.com">hello@felinefolia.com</a>
             </div>
           }
         </div>

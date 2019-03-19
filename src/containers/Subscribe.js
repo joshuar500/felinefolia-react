@@ -10,6 +10,8 @@ import { injectStripe } from 'react-stripe-elements';
 import { subscribe } from '../api/billing';
 import { stripePayloadNormalizer } from '../helpers/stripeNormalizer';
 
+import '../styles/containers/Subscribe.css';
+
 const createOptions = (fontSize, padding) => {
   return {
     style: {
@@ -43,6 +45,9 @@ class Subscribe extends Component {
       zip: '',
       phone: ''
     },
+    paymentForm: {
+
+    },
     name: '',
     address1: '',
     address2: '',
@@ -74,6 +79,12 @@ class Subscribe extends Component {
     }
   }
 
+  handleStateChange = (values) => {
+    this.setState({ ...values })
+  }
+
+  // TODO: remove this and use updateState() + Formik
+  // this is how to do old forms
   handleChange = (event) => {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
@@ -84,7 +95,13 @@ class Subscribe extends Component {
     });
   }
 
-  handleNextStep = (activeStep, option) => {
+  handleManualSelectStep = activeStep => {
+    if (this.state.activeStep >= activeStep) {
+      this.setState({ activeStep })
+    }
+  }
+
+  handleStep = (activeStep, option) => {
     this.setState({ activeStep, option: (option ? option : this.state.option) });
   }
 
@@ -126,7 +143,7 @@ class Subscribe extends Component {
         <React.Fragment>
           <div className="column is-4 is-offset-2">
             <SubscriptionCard
-              handleNextStep={() => this.handleNextStep(2, 1)}
+              handleNextStep={() => this.handleStep(2, 1)}
               title="Plants First!"
               items={[
                 "• 1 chlorophytum comosum",
@@ -138,7 +155,7 @@ class Subscribe extends Component {
           </div>
           <div className="column is-4">
             <SubscriptionCard
-              handleNextStep={() => this.handleNextStep(2, 2)}
+              handleNextStep={() => this.handleStep(2, 2)}
               title="Other Stuff First!"
               items={[
                 "• 1 sm. ceramic white plant pot",
@@ -153,22 +170,15 @@ class Subscribe extends Component {
     } else if (activeStep === 2) {
       return (
         <ShippingForm
-          handleNextStep={() => this.handleNextStep(3)}
-          handleChange={this.handleChange}
-          name={this.state.name}
-          address1={this.state.address1}
-          address2={this.state.address2}
-          city={this.state.city}
-          optionState={this.state.optionState}
-          zip={this.state.zip}
-          phone={this.state.phone}
-          error={this.state.error}
-          errorMsg={this.state.errorMsg}
+          handleNextStep={() => this.handleStep(3)}
+          handlePrevStep={() => this.handleStep(1)}
+          handleStateChange={this.handleStateChange}
         />
       )
     } else if (activeStep === 3) {
       return (
         <PaymentForm
+          handlePrevStep={() => this.handleStep(2)}
           handleSubmit={this.handleSubmit}
           createOptions={createOptions}
           cardholderName={cardholderName}
@@ -191,6 +201,8 @@ class Subscribe extends Component {
   }
 
   render() {
+    const { activeStep, option, name } = this.state;
+
     return (
       <section id="subscribe">
         <Navbar />
@@ -201,16 +213,16 @@ class Subscribe extends Component {
         <div className="container">
           <div className="columns">
             <div className="column is-6 is-offset-2">
-            <small className={"plan-step " + (this.state.activeStep === 1 ? 'active' : '')}>
+            <small className={"plan-step " + (activeStep === 1 ? 'active' : '')} onClick={() => this.handleManualSelectStep(1)}>
               1. Choose your plan
             </small>
-            <small className={"plan-step " + (this.state.activeStep === 2 ? 'active' : '')}>
+            <small className={"plan-step " + (activeStep === 2 ? 'active' : '')} onClick={() => this.handleManualSelectStep(2)}>
               2. Shipping
             </small>
-            <small className={"plan-step " + (this.state.activeStep === 3 ? 'active' : '')}>
+            <small className={"plan-step " + (activeStep === 3 ? 'active' : '')} onClick={() => this.handleManualSelectStep(3)}>
               3. Payment
             </small>
-            <small className={"plan-step " + (this.state.activeStep === 4 ? 'active' : '')}>
+            <small className={"plan-step " + (activeStep === 4 ? 'active' : '')} onClick={() => this.handleManualSelectStep(4)}>
               4. Confirmation
             </small>
             </div>
@@ -218,11 +230,11 @@ class Subscribe extends Component {
           <div className="columns">
             { this.getStepView() }
 
-            {this.state.activeStep > 1 &&
+            {activeStep > 1 &&
               <div className="column is-2">
                 <CheckoutSummaryCard
-                  plan={this.state.option}
-                  name={this.state.name}
+                  plan={option}
+                  name={name}
                 />
               </div>
             }

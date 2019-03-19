@@ -1,0 +1,10 @@
+#subscribe {
+  .plan-step {
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+      color: gray
+    }
+  }
+}
