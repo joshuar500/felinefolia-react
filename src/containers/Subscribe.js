@@ -83,30 +83,11 @@ class Subscribe extends Component {
     this.setState({ ...values })
   }
 
-  // TODO: remove this and use updateState() + Formik
-  // this is how to do old forms
-  handleChange = (event) => {
-    const target = event.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
-    const name = target.name;
-
-    this.setState({
-      [name]: value
-    });
-  }
-
-  handleManualSelectStep = activeStep => {
-    if (this.state.activeStep >= activeStep) {
-      this.setState({ activeStep })
-    }
-  }
-
   handleStep = (activeStep, option) => {
     this.setState({ activeStep, option: (option ? option : this.state.option) });
   }
 
-  handleSubmit = (event) => {
-    event.preventDefault();
+  handleSubmit = () => {
     const billingAddress = this.state.billingAddress;
     this.props.stripe
       .createToken({name: this.state.cardholderName, ...stripePayloadNormalizer(billingAddress)})
@@ -127,6 +108,8 @@ class Subscribe extends Component {
                   error: true,
                   errorMsg: resp.statusText
                 })
+              } else {
+                this.setState({  })
               }
             })
             .catch(err => {
@@ -180,11 +163,11 @@ class Subscribe extends Component {
         <PaymentForm
           handlePrevStep={() => this.handleStep(2)}
           handleSubmit={this.handleSubmit}
+          handleStateChange={this.handleStateChange}
           createOptions={createOptions}
           cardholderName={cardholderName}
           billingAddress={this.state.billingAddress}
           billingSameAsShipping={this.state.billingSameAsShipping}
-          handleChange={this.handleChange}
           error={this.state.error}
           errorMsg={this.state.errorMsg}
         />
@@ -213,16 +196,16 @@ class Subscribe extends Component {
         <div className="container">
           <div className="columns">
             <div className="column is-6 is-offset-2">
-            <small className={"plan-step " + (activeStep === 1 ? 'active' : '')} onClick={() => this.handleManualSelectStep(1)}>
+            <small className={"plan-step " + (activeStep === 1 ? 'active' : '')} onClick={() => this.handleStep(1, option)}>
               1. Choose your plan
             </small>
-            <small className={"plan-step " + (activeStep === 2 ? 'active' : '')} onClick={() => this.handleManualSelectStep(2)}>
+            <small className={"plan-step " + (activeStep === 2 ? 'active' : 'disabled')} onClick={() => this.handleStep(2, option)}>
               2. Shipping
             </small>
-            <small className={"plan-step " + (activeStep === 3 ? 'active' : '')} onClick={() => this.handleManualSelectStep(3)}>
+            <small className={"plan-step " + (activeStep === 3 ? 'active' : 'disabled')} onClick={() => this.handleStep(3, option)}>
               3. Payment
             </small>
-            <small className={"plan-step " + (activeStep === 4 ? 'active' : '')} onClick={() => this.handleManualSelectStep(4)}>
+            <small className={"plan-step " + (activeStep === 4 ? 'active' : 'disabled')} onClick={() => this.handleStep(4, option)}>
               4. Confirmation
             </small>
             </div>

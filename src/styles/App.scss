@@ -87,6 +87,12 @@ img.cta-plant {
   &.active {
     color: inherit;
   }
+
+  &.disabled {
+    pointer-events: none;
+    cursor: default;
+    text-decoration: none;
+  }
 }
 
 .card {

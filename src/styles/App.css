@@ -57,6 +57,10 @@ img.cta-plant {
   color: #ddd; }
   .plan-step.active {
     color: inherit; }
+  .plan-step.disabled {
+    pointer-events: none;
+    cursor: default;
+    text-decoration: none; }
 
 .card {
   text-align: center; }
