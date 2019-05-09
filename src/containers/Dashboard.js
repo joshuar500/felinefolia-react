@@ -9,13 +9,12 @@ import { Table } from '../components/shared/Table';
 import { getUsers } from '../api/users';
 
 class Dashboard extends Component {
-
   state = {
     profile: {},
     error: false,
     loggedIn: false,
-    users: null,
-  }
+    users: null
+  };
 
   // setAuth = (profile) => { //TODO: remove this function. taken care of in App.js
   //   this.setState({
@@ -30,19 +29,18 @@ class Dashboard extends Component {
   // }
 
   getAllUsers = () => {
-    getUsers()
-      .then(res => {
-        if (res) {
-          if (res.status !== 200) {
-            this.setState({ error: true });
-          } else {
-            this.setState({ users: res.data });
-          }
-        } else {
+    getUsers().then(res => {
+      if (res) {
+        if (res.status !== 200) {
           this.setState({ error: true });
+        } else {
+          this.setState({ users: res.data });
         }
-      });
-  }
+      } else {
+        this.setState({ error: true });
+      }
+    });
+  };
 
   // componentDidMount() {
   //   // check if user is logged in
@@ -65,55 +63,62 @@ class Dashboard extends Component {
     return (
       <div className="container">
         <div className="columns">
-          
           <LeftNavbar />
 
           <main className="column main">
             <nav className="breadcrumb is-small" aria-label="breadcrumbs">
               <ul>
-                <li><a>Home</a></li>
-                <li className="is-active"><a aria-current="page">Dashboard</a></li>
+                <li>
+                  <a>Home</a>
+                </li>
+                <li className="is-active">
+                  <a aria-current="page">Dashboard</a>
+                </li>
               </ul>
             </nav>
 
             <div className="level">
               <div className="level-left">
                 <div className="level-item">
-                  <div className="title has-text-primary"><i className="fa fa-tachometer"></i> Users</div>
+                  <div className="title has-text-primary">
+                    <i className="fa fa-tachometer" /> Users
+                  </div>
                 </div>
               </div>
               <div className="level-right">
                 <div className="level-item">
                   <button type="button" className="button is-small">
-                    Today is: { new Date().toLocaleDateString() }
+                    Today is: {new Date().toLocaleDateString()}
                   </button>
                 </div>
               </div>
             </div>
 
-          <Table id="users" data={this.state.users} />
+            <Table id="users" data={this.state.users} />
           </main>
-
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   renderUserDashboard = () => {
     return (
       <div className="container">
         <div className="columns">
           <div className="column">
-            <progress class="progress is-primary" value="15" max="100">15%</progress>
+            <progress class="progress is-primary" value="15" max="100">
+              15%
+            </progress>
           </div>
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   render() {
-
     const { profile, error } = this.state;
+
+    console.log('error', error);
 
     if (error) {
       return null;
@@ -121,8 +126,10 @@ class Dashboard extends Component {
       return (
         <div id="login">
           <Navbar />
-          <Hero 
-            title={`${profile.role === 'admin' ? 'Admin Dashboard' : 'Your shipment is on the way'}  ${profile.name || ''}`}
+          <Hero
+            title={`${
+              profile.role === 'admin' ? 'Admin Dashboard' : 'Your shipment is on the way'
+            }  ${profile.name || ''}`}
             subtitle=""
           />
           {/* <div className="container">
@@ -137,10 +144,10 @@ class Dashboard extends Component {
               </div>
             </div>
           </div> */}
-          { profile.role === 'member' && this.renderUserDashboard() }
-          { profile.role === 'admin' && this.renderAdminDashboard() }
+          {profile.role === 'member' && this.renderUserDashboard()}
+          {profile.role === 'admin' && this.renderAdminDashboard()}
           <div className="container">
-          {/* add a spacer */}
+            {/* add a spacer */}
             &nbsp;
           </div>
           <Footer />

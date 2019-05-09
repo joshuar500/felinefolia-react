@@ -1,5 +1,4 @@
 import React from 'react';
-import plant from '../img/felinefolia_homepage_houseplant.png'
 
 export function SubscriptionCard(props) {
   return (
@@ -7,7 +6,7 @@ export function SubscriptionCard(props) {
       <div className="card-content">
         <div className="media">
           <div className="media-center">
-            <img src={plant} className="card-img" alt="houseplant"/>
+            <img src={props.image} className="card-img" alt="houseplant"/>
           </div>
         </div>
       </div>

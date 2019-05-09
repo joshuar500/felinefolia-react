@@ -14,9 +14,10 @@ img.cta-plant {
   background: #fff; }
 
 .homepage-bg {
-  background: url("../img/felinefolia.jpg") right no-repeat #fff;
+  background: url("../img/felinefolia_notoppadding.jpg") right no-repeat #fff;
   background-size: contain;
-  height: 100%; }
+  height: 100%;
+  height: 100vh; }
   .homepage-bg .level {
     height: 100%; }
 

@@ -1,9 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
-import { CardNumberElement, CardExpiryElement, CardCVCElement, PostalCodeElement } from 'react-stripe-elements';
+import {
+  CardNumberElement,
+  CardExpiryElement,
+  CardCVCElement,
+  PostalCodeElement
+} from 'react-stripe-elements';
 import classnames from 'classnames';
-import isEmpty from 'lodash-es/isEmpty'
+import isEmpty from 'lodash-es/isEmpty';
 import { stateAbbrs } from '../helpers/forms';
 import { ShippingSchema } from '../helpers/validationSchema';
 
@@ -16,19 +21,38 @@ export function RegisterForm(props) {
             <div className="field">
               <label className="label is-medium">Email</label>
               <div className="control">
-                <input name="email" className="input is-medium" type="email" placeholder="yourname@email.com" value={props.email} onChange={props.handleChange} />
+                <input
+                  name="email"
+                  className="input is-medium"
+                  type="email"
+                  placeholder="yourname@email.com"
+                  value={props.email}
+                  onChange={props.handleChange}
+                />
               </div>
             </div>
             <div className="field">
               <label className="label is-medium">Password</label>
               <div className="control">
-                <input name="password" className="input is-medium" type="password" value={props.password} onChange={props.handleChange} />
+                <input
+                  name="password"
+                  className="input is-medium"
+                  type="password"
+                  value={props.password}
+                  onChange={props.handleChange}
+                />
               </div>
             </div>
             <div className="field">
               <label className="label is-medium">Confirm Password</label>
               <div className="control">
-                <input name="passwordConfirm" className="input is-medium" type="password" value={props.passwordConfirm} onChange={props.handleChange} />
+                <input
+                  name="passwordConfirm"
+                  className="input is-medium"
+                  type="password"
+                  value={props.passwordConfirm}
+                  onChange={props.handleChange}
+                />
               </div>
             </div>
             <button className="button is-primary">Submit</button>
@@ -36,7 +60,7 @@ export function RegisterForm(props) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export function LoginForm(props) {
@@ -48,24 +72,48 @@ export function LoginForm(props) {
             <div className="field">
               <label className="label is-medium">Email</label>
               <div className="control">
-                <input name="email" onBlur={props.handleBlur('email')} className={classnames({ "is-danger": props.shouldMarkError('email') }, "input is-medium")} type="email" placeholder="yourname@email.com" value={props.email} onChange={props.handleChange} />
+                <input
+                  name="email"
+                  onBlur={props.handleBlur('email')}
+                  className={classnames(
+                    { 'is-danger': props.shouldMarkError('email') },
+                    'input is-medium'
+                  )}
+                  type="email"
+                  placeholder="yourname@email.com"
+                  value={props.email}
+                  onChange={props.handleChange}
+                />
               </div>
             </div>
             <div className="field">
               <label className="label is-medium">Password</label>
               <div className="control">
-                <input type="password" name="password" onBlur={props.handleBlur('password')} className={classnames({ "is-danger": props.shouldMarkError('password') }, "input is-medium")} value={props.password} onChange={props.handleChange} />
+                <input
+                  type="password"
+                  name="password"
+                  onBlur={props.handleBlur('password')}
+                  className={classnames(
+                    { 'is-danger': props.shouldMarkError('password') },
+                    'input is-medium'
+                  )}
+                  value={props.password}
+                  onChange={props.handleChange}
+                />
               </div>
             </div>
             <div className="field has-text-centered">
               <Link to="/resetpassword">Reset Password</Link>
             </div>
-            <button disabled={!props.isEnabled} className="button is-primary">Submit</button>
+            {props.errorMsg ? <div className="has-text-danger">{props.errorMsg}</div> : null}
+            <button disabled={!props.isEnabled} className="button is-primary">
+              Submit
+            </button>
           </form>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export function ResetPasswordForm(props) {
@@ -77,7 +125,14 @@ export function ResetPasswordForm(props) {
             <div className="field">
               <label className="label is-medium">Email</label>
               <div className="control">
-                <input name="email" className="input is-medium" type="email" placeholder="yourname@email.com" value={props.email} onChange={props.handleChange} />
+                <input
+                  name="email"
+                  className="input is-medium"
+                  type="email"
+                  placeholder="yourname@email.com"
+                  value={props.email}
+                  onChange={props.handleChange}
+                />
               </div>
             </div>
             <button className="button is-primary">Submit</button>
@@ -85,22 +140,21 @@ export function ResetPasswordForm(props) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 // check validity
-ShippingSchema
-  .validate({
-    name: '1',
-    address1: '124124',
-    address2: '41241',
-    city: '123444',
-    zip: '1234'
-  })
-  .then(function (valid) {
+ShippingSchema.validate({
+  name: '1',
+  address1: '124124',
+  address2: '41241',
+  city: '123444',
+  zip: '1234'
+})
+  .then(function(valid) {
     console.log('valid', valid); // => true
   })
-  .catch(function (err) {
+  .catch(function(err) {
     console.log('err', err);
   });
 
@@ -114,9 +168,9 @@ export function ShippingForm(props) {
           address2: '',
           city: '',
           zip: '',
-          phone: '',
+          phone: ''
         }}
-        onSubmit={(values) => {
+        onSubmit={values => {
           props.handleStateChange(values);
           props.handleNextStep();
         }}
@@ -127,9 +181,7 @@ export function ShippingForm(props) {
               <label className="label is-medium">First and Last Name</label>
               <div className="control">
                 <Field name="name" className="input" type="text" placeholder="Jan Doe" />
-                {errors.name && touched.name ? (
-                  <div>{errors.name}</div>
-                ) : null}
+                {errors.name && touched.name ? <div>{errors.name}</div> : null}
               </div>
             </div>
             <div className="field">
@@ -159,8 +211,10 @@ export function ShippingForm(props) {
                   <div className="select">
                     <Field component="select" name="optionState">
                       {stateAbbrs.map(state => (
-                        <option key={state} value={state}>{state}</option>)
-                      )}
+                        <option key={state} value={state}>
+                          {state}
+                        </option>
+                      ))}
                     </Field>
                   </div>
                 </div>
@@ -179,19 +233,26 @@ export function ShippingForm(props) {
                 <Field name="phone" className="input" type="text" placeholder="(123) 444-5555" />
               </div>
             </div>
-            {
-              props.error &&
+            {props.error && (
               <div className="column notification is-danger has-text-centered">
                 {props.errorMsg}
               </div>
-            }
-            <button onClick={props.handlePrevStep} className="button is-secondary">Previous</button>{' '}
-            <button type="submit" className="button is-primary" disabled={isSubmitting || !isEmpty(errors) || !dirty}>Next</button>
+            )}
+            <button onClick={props.handlePrevStep} className="button is-secondary">
+              Previous
+            </button>{' '}
+            <button
+              type="submit"
+              className="button is-primary"
+              disabled={isSubmitting || !isEmpty(errors) || !dirty}
+            >
+              Next
+            </button>
           </Form>
         )}
       />
     </div>
-  )
+  );
 }
 
 export function BillingForm(props) {
@@ -228,8 +289,10 @@ export function BillingForm(props) {
             <div className="select">
               <Field component="select" name="optionState">
                 {stateAbbrs.map(state => (
-                  <option key={state} value={state}>{state}</option>)
-                )}
+                  <option key={state} value={state}>
+                    {state}
+                  </option>
+                ))}
               </Field>
             </div>
           </div>
@@ -237,22 +300,35 @@ export function BillingForm(props) {
         <div className="field">
           <label className="label is-medium">ZIP Code</label>
           <div className="control is-expanded">
-            <Field name="zip" className="input" type="text" placeholder="Jan Doe" value={props.zip} onChange={props.handleChange} />
+            <Field
+              name="zip"
+              className="input"
+              type="text"
+              placeholder="Jan Doe"
+              value={props.zip}
+              onChange={props.handleChange}
+            />
           </div>
         </div>
       </div>
       <div className="field">
         <label className="label is-medium">Phone Number</label>
         <div className="control">
-          <Field name="phone" className="input" type="text" placeholder="Jan Doe" value={props.phone} onChange={props.handleChange} />
+          <Field
+            name="phone"
+            className="input"
+            type="text"
+            placeholder="Jan Doe"
+            value={props.phone}
+            onChange={props.handleChange}
+          />
         </div>
       </div>
     </React.Fragment>
-  )
+  );
 }
 
 export function PaymentForm(props) {
-
   return (
     <div className="column is-6 is-offset-2">
       <Formik
@@ -264,9 +340,9 @@ export function PaymentForm(props) {
           city: '',
           zip: '',
           phone: '',
-          billingSameAsShipping: true,
+          billingSameAsShipping: true
         }}
-        onSubmit={(values) => {
+        onSubmit={values => {
           console.log('supwiddit');
           props.handleStateChange(values);
           props.handleSubmit();
@@ -284,7 +360,7 @@ export function PaymentForm(props) {
               <div className="control">
                 <CardNumberElement
                   {...props.createOptions(props.fontSize)}
-                // onBlur={ () => isValid.card = true }
+                  // onBlur={ () => isValid.card = true }
                 />
               </div>
             </div>
@@ -293,7 +369,7 @@ export function PaymentForm(props) {
               <div className="control">
                 <CardExpiryElement
                   {...props.createOptions(props.fontSize)}
-                // onBlur={ () => isValid.exp = true }
+                  // onBlur={ () => isValid.exp = true }
                 />
               </div>
             </div>
@@ -302,7 +378,7 @@ export function PaymentForm(props) {
               <div className="control">
                 <CardCVCElement
                   {...props.createOptions(props.fontSize)}
-                // onBlur={ () => isValid.cvc = true }
+                  // onBlur={ () => isValid.cvc = true }
                 />
               </div>
             </div>
@@ -311,17 +387,21 @@ export function PaymentForm(props) {
               <div className="control">
                 <PostalCodeElement
                   {...props.createOptions(props.fontSize)}
-                // onBlur={ () => isValid.zip= true }
+                  // onBlur={ () => isValid.zip= true }
                 />
               </div>
             </div>
             <div className="field">
               <label className="checkbox">
-                <Field type="checkbox" name="billingSameAsShipping" checked={values.billingSameAsShipping} />
+                <Field
+                  type="checkbox"
+                  name="billingSameAsShipping"
+                  checked={values.billingSameAsShipping}
+                />
                 &nbsp; Billing same as Shipping
-          </label>
+              </label>
             </div>
-            {!values.billingSameAsShipping &&
+            {!values.billingSameAsShipping && (
               <BillingForm
               // handleChange={props.handleChange}
               // name={props.billingAddress.name}
@@ -332,17 +412,21 @@ export function PaymentForm(props) {
               // zip={props.billingAddress.zip}
               // phone={props.billingAddress.phone}
               />
-            }
-            {
-              props.error &&
+            )}
+            {props.error && (
               <div className="column notification is-danger has-text-centered">
                 {props.errorMsg}
               </div>
-            }
-            <button onClick={props.handlePrevStep} className="button is-secondary">Previous</button>{' '}
-            <button type="submit" className="button is-primary">Review Order</button>
+            )}
+            <button onClick={props.handlePrevStep} className="button is-secondary">
+              Previous
+            </button>{' '}
+            <button type="submit" className="button is-primary">
+              Review Order
+            </button>
           </Form>
-        )} />
+        )}
+      />
     </div>
-  )
+  );
 }

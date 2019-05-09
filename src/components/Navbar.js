@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import { NavCta } from './NavCta';
 import { useOnlineStatus } from '../hooks/useOnlineStatus';
 
@@ -9,31 +9,30 @@ export function Navbar() {
   const isOnline = useOnlineStatus();
 
   function getNav() {
-
-    if (isOnline === null) return null; // wait for a value to be given
+    // if (isOnline === null) return null; // wait for a value to be given
 
     return (
       <div className="hero-head">
-      <NavCta />
-      <nav className="navbar">
-        <div className="container">
-          <div className="navbar-brand">
-            <Link to="/" className="navbar-item">
-              <img src={logo} alt="Logo" />
-            </Link>
-            <span className="navbar-burger burger" data-target="navbarMenuHeroA">
-              <span />
-              <span />
-              <span />
-            </span>
+        <NavCta />
+        <nav className="navbar">
+          <div className="container">
+            <div className="navbar-brand">
+              <Link to="/" className="navbar-item">
+                <img src={logo} alt="Logo" />
+              </Link>
+              <span className="navbar-burger burger" data-target="navbarMenuHeroA">
+                <span />
+                <span />
+                <span />
+              </span>
+            </div>
+            <div id="navbarMenuHeroA" className="navbar-menu">
+              {isOnline ? showLoggedInNav() : showLoggedOutNav()}
+            </div>
           </div>
-          <div id="navbarMenuHeroA" className="navbar-menu">
-            { isOnline ? showLoggedInNav() : showLoggedOutNav() }
-          </div>
-        </div>
-      </nav>
-    </div>
-    )
+        </nav>
+      </div>
+    );
   }
 
   function showLoggedInNav() {
@@ -42,9 +41,9 @@ export function Navbar() {
         <a href="/#about" className="navbar-item">
           about
         </a>
-        <a href="/dashboard" className="navbar-item">
+        <Link to="/dashboard" className="navbar-item">
           dashboard
-        </a>
+        </Link>
         <Link to="/logout" className="navbar-item">
           logout
         </Link>
@@ -58,7 +57,7 @@ export function Navbar() {
         <a href="/#about" className="navbar-item">
           about
         </a>
-        <a href="/#whatyouget" className="navbar-item">
+        <a to="/#whatyouget" className="navbar-item">
           what you get
         </a>
         <Link to="/login" className="navbar-item">

@@ -10,6 +10,9 @@ import { injectStripe } from 'react-stripe-elements';
 import { subscribe } from '../api/billing';
 import { stripePayloadNormalizer } from '../helpers/stripeNormalizer';
 
+import option1img from '../img/two_plants.png';
+import option2img from '../img/felinefolia_homepage_houseplant.png';
+
 import '../styles/containers/Subscribe.css';
 
 const createOptions = (fontSize, padding) => {
@@ -128,6 +131,7 @@ class Subscribe extends Component {
             <SubscriptionCard
               handleNextStep={() => this.handleStep(2, 1)}
               title="Plants First!"
+              image={option1img}
               items={[
                 "• 1 chlorophytum comosum",
                 "• 1 calathea lancifolia",
@@ -140,6 +144,7 @@ class Subscribe extends Component {
             <SubscriptionCard
               handleNextStep={() => this.handleStep(2, 2)}
               title="Other Stuff First!"
+              image={option2img}
               items={[
                 "• 1 sm. ceramic white plant pot",
                 "• 1 sm. ceramic orange plant pot",
