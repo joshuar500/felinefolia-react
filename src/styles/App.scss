@@ -103,7 +103,9 @@ img.cta-plant {
 }
 
 .card {
-  text-align: center;
+  &.summary {
+    text-align: center;
+  }
 
   .media-center {
     margin: 0 auto;

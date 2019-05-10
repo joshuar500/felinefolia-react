@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import { Navbar } from '../components/Navbar';
 import { Hero } from '../components/Hero';
@@ -69,10 +70,12 @@ class Dashboard extends Component {
             <nav className="breadcrumb is-small" aria-label="breadcrumbs">
               <ul>
                 <li>
-                  <a>Home</a>
+                  <a href="/">Home</a>
                 </li>
                 <li className="is-active">
-                  <a aria-current="page">Dashboard</a>
+                  <Link to="dashboard" aria-current="page">
+                    Dashboard
+                  </Link>
                 </li>
               </ul>
             </nav>

@@ -9,8 +9,6 @@ export function Navbar() {
   const isOnline = useOnlineStatus();
 
   function getNav() {
-    // if (isOnline === null) return null; // wait for a value to be given
-
     return (
       <div className="hero-head">
         <NavCta />
@@ -27,7 +25,7 @@ export function Navbar() {
               </span>
             </div>
             <div id="navbarMenuHeroA" className="navbar-menu">
-              {isOnline ? showLoggedInNav() : showLoggedOutNav()}
+              {isOnline ? showLoggedInNav() : showLoggedOutNav(isOnline)}
             </div>
           </div>
         </nav>
@@ -51,13 +49,13 @@ export function Navbar() {
     );
   }
 
-  function showLoggedOutNav() {
-    return (
+  function showLoggedOutNav(isOnline) {
+    return isOnline !== null ? (
       <div className="navbar-end">
         <a href="/#about" className="navbar-item">
           about
         </a>
-        <a to="/#whatyouget" className="navbar-item">
+        <a href="/#whatyouget" className="navbar-item">
           what you get
         </a>
         <Link to="/login" className="navbar-item">
@@ -69,7 +67,7 @@ export function Navbar() {
           </Link>
         </span>
       </div>
-    );
+    ) : null;
   }
 
   return getNav();

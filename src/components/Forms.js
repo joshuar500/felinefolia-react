@@ -333,19 +333,18 @@ export function PaymentForm(props) {
     <div className="column is-6 is-offset-2">
       <Formik
         initialValues={{
-          cardholderName: '',
-          name: '',
-          address1: '',
-          address2: '',
-          city: '',
-          zip: '',
-          phone: '',
+          cardholderName: props.cardholderName,
+          name: props.shippingAddress.name,
+          address1: props.shippingAddress.address_line1,
+          address2: props.shippingAddress.address_line2,
+          city: props.shippingAddress.address_city,
+          zip: props.shippingAddress.address_zip,
+          phone: props.phone,
           billingSameAsShipping: true
         }}
         onSubmit={values => {
-          console.log('supwiddit');
           props.handleStateChange(values);
-          props.handleSubmit();
+          props.handleNextStep();
         }}
         render={({ values }) => (
           <Form>

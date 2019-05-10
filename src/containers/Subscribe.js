@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Navbar } from '../components/Navbar';
 import { Hero } from '../components/Hero';
 import { Footer } from '../components/Footer';
-import { SubscriptionCard, CheckoutSummaryCard } from '../components/Card';
+import { SubscriptionCard, CheckoutSummaryCard, ReviewSummaryCard } from '../components/Card';
 import { ShippingForm, PaymentForm } from '../components/Forms';
 import { injectStripe } from 'react-stripe-elements';
 
@@ -24,33 +24,20 @@ const createOptions = (fontSize, padding) => {
         letterSpacing: '0.025em',
         fontFamily: 'Lato, sans-serif',
         '::placeholder': {
-          color: '#aab7c4',
+          color: '#aab7c4'
         },
-        padding,
+        padding
       },
       invalid: {
-        color: '#9e2146',
-      },
-    },
+        color: '#9e2146'
+      }
+    }
   };
 };
 
 class Subscribe extends Component {
-
   state = {
-    shippingAddress: {},
-    billingAddress: {
-      name: '',
-      address1: '',
-      address2: '',
-      city: '',
-      optionState: '',
-      zip: '',
-      phone: ''
-    },
-    paymentForm: {
-
-    },
+    billingAddress: {},
     name: '',
     address1: '',
     address2: '',
@@ -63,8 +50,8 @@ class Subscribe extends Component {
     option: 0,
     billingSameAsShipping: true,
     error: false,
-    errorMsg: '',
-  }
+    errorMsg: ''
+  };
 
   componentDidUpdate(prevProps, prevState) {
     // update shipping/billing address states
@@ -72,55 +59,57 @@ class Subscribe extends Component {
       if (!this.state.billingSameAsShipping) {
         this.setState({
           shippingAddress: stripePayloadNormalizer(this.state)
-        })
+        });
       } else {
         this.setState({
           billingAddress: stripePayloadNormalizer(this.state),
           shippingAddress: stripePayloadNormalizer(this.state)
-        })
+        });
       }
     }
   }
 
-  handleStateChange = (values) => {
-    this.setState({ ...values })
-  }
+  handleStateChange = values => {
+    this.setState({ ...values });
+    console.log('this.state', this.state);
+  };
 
   handleStep = (activeStep, option) => {
-    this.setState({ activeStep, option: (option ? option : this.state.option) });
-  }
+    this.setState({ activeStep, option: option ? option : this.state.option });
+  };
 
   handleSubmit = () => {
     const billingAddress = this.state.billingAddress;
+    console.log('billingAddress', billingAddress);
     this.props.stripe
-      .createToken({name: this.state.cardholderName, ...stripePayloadNormalizer(billingAddress)})
-      .then((payload) => {
+      .createToken({ name: this.state.cardholderName, ...stripePayloadNormalizer(billingAddress) })
+      .then(payload => {
         if (payload.error) {
           // console.warn('show user there was an error', payload.error);
           this.setState({
             error: true,
             errorMsg: payload.error.message
-          })
+          });
         } else if (payload.token) {
           console.log('send to server to make charge');
           subscribe(payload.token)
             .then(resp => {
-              console.log('resp', resp)
+              console.log('resp', resp);
               if (resp.status !== 200) {
                 this.setState({
                   error: true,
                   errorMsg: resp.statusText
-                })
+                });
               } else {
-                this.setState({  })
+                this.setState({});
               }
             })
             .catch(err => {
-              console.warn('err', err)
+              console.warn('err', err);
             });
         }
       });
-  }
+  };
 
   getStepView = () => {
     const { activeStep, cardholderName } = this.state;
@@ -133,10 +122,10 @@ class Subscribe extends Component {
               title="Plants First!"
               image={option1img}
               items={[
-                "• 1 chlorophytum comosum",
-                "• 1 calathea lancifolia",
-                "• 2 plastic pots",
-                "• 1 small bag of potting mix"
+                '• 1 chlorophytum comosum',
+                '• 1 calathea lancifolia',
+                '• 2 plastic pots',
+                '• 1 small bag of potting mix'
               ]}
             />
           </div>
@@ -146,10 +135,10 @@ class Subscribe extends Component {
               title="Other Stuff First!"
               image={option2img}
               items={[
-                "• 1 sm. ceramic white plant pot",
-                "• 1 sm. ceramic orange plant pot",
-                "• 1 art print supporting local artist",
-                "• 1 small bag of potting mix"
+                '• 1 sm. ceramic white plant pot',
+                '• 1 sm. ceramic orange plant pot',
+                '• 1 art print supporting indie artist',
+                '• 1 small bag of potting mix'
               ]}
             />
           </div>
@@ -162,31 +151,40 @@ class Subscribe extends Component {
           handlePrevStep={() => this.handleStep(1)}
           handleStateChange={this.handleStateChange}
         />
-      )
+      );
     } else if (activeStep === 3) {
       return (
         <PaymentForm
           handlePrevStep={() => this.handleStep(2)}
-          handleSubmit={this.handleSubmit}
+          handleNextStep={() => this.handleStep(4)}
           handleStateChange={this.handleStateChange}
           createOptions={createOptions}
           cardholderName={cardholderName}
+          shippingAddress={stripePayloadNormalizer(this.state)}
+          phone={this.state.phone}
           billingAddress={this.state.billingAddress}
           billingSameAsShipping={this.state.billingSameAsShipping}
           error={this.state.error}
           errorMsg={this.state.errorMsg}
         />
-      )
+      );
     } else if (activeStep === 4) {
+      return (
+        <ReviewSummaryCard
+          shippingAddress={stripePayloadNormalizer(this.state)}
+          billingAddress={this.state.billingAddress}
+        />
+      );
+    } else if (activeStep === 5) {
       return (
         <PaymentForm
           handleSubmit={this.handleSubmit}
           createOptions={createOptions}
           cardholderName={cardholderName}
         />
-      )
+      );
     }
-  }
+  };
 
   render() {
     const { activeStep, option, name } = this.state;
@@ -194,47 +192,64 @@ class Subscribe extends Component {
     return (
       <section id="subscribe">
         <Navbar />
-        <Hero 
+        <Hero
           title="Choose the right plan for you and your pets"
           subtitle="We have two options this month that we think you'll love"
         />
         <div className="container">
           <div className="columns">
             <div className="column is-6 is-offset-2">
-            <small className={"plan-step " + (activeStep === 1 ? 'active' : '')} onClick={() => this.handleStep(1, option)}>
-              1. Choose your plan
-            </small>
-            <small className={"plan-step " + (activeStep === 2 ? 'active' : 'disabled')} onClick={() => this.handleStep(2, option)}>
-              2. Shipping
-            </small>
-            <small className={"plan-step " + (activeStep === 3 ? 'active' : 'disabled')} onClick={() => this.handleStep(3, option)}>
-              3. Payment
-            </small>
-            <small className={"plan-step " + (activeStep === 4 ? 'active' : 'disabled')} onClick={() => this.handleStep(4, option)}>
-              4. Confirmation
-            </small>
+              <small
+                className={'plan-step ' + (activeStep === 1 ? 'active' : '')}
+                onClick={() => this.handleStep(1, option)}
+              >
+                1. Choose your plan
+              </small>
+              <small
+                className={'plan-step ' + (activeStep === 2 ? 'active' : 'disabled')}
+                onClick={() => this.handleStep(2, option)}
+              >
+                2. Shipping
+              </small>
+              <small
+                className={'plan-step ' + (activeStep === 3 ? 'active' : 'disabled')}
+                onClick={() => this.handleStep(3, option)}
+              >
+                3. Payment
+              </small>
+              <small
+                className={'plan-step ' + (activeStep === 4 ? 'active' : 'disabled')}
+                onClick={() => this.handleStep(4, option)}
+              >
+                4. Review
+              </small>
+              <small
+                className={'plan-step ' + (activeStep === 5 ? 'active' : 'disabled')}
+                onClick={() => this.handleStep(5, option)}
+              >
+                5. Confirmation
+              </small>
             </div>
           </div>
           <div className="columns">
-            { this.getStepView() }
+            {this.getStepView()}
 
-            {activeStep > 1 &&
+            {activeStep > 1 && (
               <div className="column is-2">
-                <CheckoutSummaryCard
-                  plan={option}
-                  name={name}
-                />
+                <CheckoutSummaryCard plan={option} name={name} />
               </div>
-            }
+            )}
           </div>
         </div>
         <div className="container">
-        <div className="columns">
-        <div className="column has-text-centered">You choose your first option and next month you'll get the other option.</div>
-        </div>
+          <div className="columns">
+            <div className="column has-text-centered">
+              You choose your first option and next month you'll get the other option.
+            </div>
+          </div>
         </div>
         <div className="container">
-        {/* add a spacer */}
+          {/* add a spacer */}
           &nbsp;
         </div>
         <Footer />

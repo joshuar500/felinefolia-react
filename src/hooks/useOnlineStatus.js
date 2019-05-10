@@ -23,9 +23,9 @@ export function useOnlineStatus() {
         }
       })
       .catch(err => {
-        handleStatusChange(false)
+        handleStatusChange(false);
       });
   }, []);
-
+  console.log('isOnline', isOnline);
   return isOnline;
 }
