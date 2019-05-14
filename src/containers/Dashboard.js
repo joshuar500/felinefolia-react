@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Navbar } from '../components/Navbar';
 import { Hero } from '../components/Hero';
-import { Footer } from '../components/Footer';
 import { LeftNavbar } from '../components/admin/LeftNavbar';
 import { Table } from '../components/shared/Table';
 
 import { getUsers } from '../api/users';
+import SiteContainer from './SiteContainer';
 
 class Dashboard extends Component {
   state = {
@@ -16,18 +15,6 @@ class Dashboard extends Component {
     loggedIn: false,
     users: null
   };
-
-  // setAuth = (profile) => { //TODO: remove this function. taken care of in App.js
-  //   this.setState({
-  //     loggedIn: true,
-  //     profile
-  //   });
-  //   if (profile.role === 'admin') {
-  //     this.getAllUsers();
-  //   } else {
-  //     console.log('just a regular member');
-  //   }
-  // }
 
   getAllUsers = () => {
     getUsers().then(res => {
@@ -42,23 +29,6 @@ class Dashboard extends Component {
       }
     });
   };
-
-  // componentDidMount() {
-  //   // check if user is logged in
-  //   getAccount() //TODO: remove this logic. taken care of in App.js
-  //     .then(res => {
-  //       if (res) {
-  //         if (res.status !== 200) {
-  //           this.setState({ error: true });
-  //         } else if (res) {
-  //           this.setAuth(res.data);
-  //         }
-  //       } else {
-  //         this.props.history.push('login');
-  //       }
-  //     })
-  //     .catch(err => this.setState({ error: true }));
-  // }
 
   renderAdminDashboard = () => {
     return (
@@ -121,14 +91,13 @@ class Dashboard extends Component {
   render() {
     const { profile, error } = this.state;
 
-    console.log('error', error);
+    console.log('this.props', this.props);
 
     if (error) {
       return null;
     } else {
       return (
-        <div id="login">
-          <Navbar />
+        <SiteContainer isLoggedIn={this.props.isLoggedIn}>
           <Hero
             title={`${
               profile.role === 'admin' ? 'Admin Dashboard' : 'Your shipment is on the way'
@@ -149,12 +118,7 @@ class Dashboard extends Component {
           </div> */}
           {profile.role === 'member' && this.renderUserDashboard()}
           {profile.role === 'admin' && this.renderAdminDashboard()}
-          <div className="container">
-            {/* add a spacer */}
-            &nbsp;
-          </div>
-          <Footer />
-        </div>
+        </SiteContainer>
       );
     }
   }

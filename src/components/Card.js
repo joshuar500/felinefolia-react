@@ -1,4 +1,5 @@
 import React from 'react';
+import { stripePayloadNormalizer } from '../helpers/stripeNormalizer';
 
 export function SubscriptionCard(props) {
   return (
@@ -34,17 +35,19 @@ export function ReviewSummaryCard(props) {
   let { shippingAddress, billingAddress } = props;
   if (!Object.keys(billingAddress).length) {
     billingAddress = shippingAddress;
+  } else {
+    billingAddress = stripePayloadNormalizer(billingAddress);
   }
-  console.log('props', props);
   return (
     <div className="column is-6 is-offset-2">
       <div className="card summary">
         <div className="card-content">
           <div className="media">
-            <div className="media-left">
+            <div className="media-center">
               <img src={props.image} className="card-img" alt="houseplant" />
             </div>
           </div>
+          <ul>{props.items && props.items.map(item => <li key={item}> {item} </li>)}</ul>
         </div>
         <footer className="card-footer">
           <div className="card-footer-item">
@@ -67,12 +70,13 @@ export function ReviewSummaryCard(props) {
             <div className="card-content">
               Billing Address: <br />
               <div className="content">
-                <small>{billingAddress.address1}</small>
+                <small>{billingAddress.address_line1}</small>
                 <br />
-                <small>{billingAddress.address2}</small>
+                <small>{billingAddress.address_line2}</small>
                 <br />
                 <small>
-                  {billingAddress.city} {billingAddress.optionState}, {billingAddress.zip}
+                  {billingAddress.address_city} {billingAddress.address_state},{' '}
+                  {billingAddress.address_zip}
                 </small>
                 <br />
               </div>
@@ -83,7 +87,8 @@ export function ReviewSummaryCard(props) {
       <button
         className="button is-primary"
         style={{ marginTop: '0.75rem' }}
-        onClick={props.handleNextStep}
+        type="button"
+        onClick={props.handleSubmit}
       >
         PURCHASE
       </button>
@@ -102,11 +107,11 @@ export function CheckoutSummaryCard(props) {
         </div>
       </div> */}
       <div className="card-header">
-        <p className="card-header-title is-centered">{props.plan}</p>
+        <p className="card-header-title is-centered">Option: {props.plan}</p>
       </div>
       <div className="card-subheader">
         <p className="card-header-subtitle is-centered">
-          $30 &nbsp;<small>/ month</small>
+          Total: $30 &nbsp;<small>/ month</small>
         </p>
       </div>
       <div className="card-content">

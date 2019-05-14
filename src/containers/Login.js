@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 
-import { Navbar } from '../components/Navbar';
 import { Hero } from '../components/Hero';
-import { Footer } from '../components/Footer';
 import { LoginForm } from '../components/Forms';
 
 import { login } from '../api/users';
+import SiteContainer from './SiteContainer';
 
 class Login extends Component {
   state = {
@@ -71,8 +70,7 @@ class Login extends Component {
     const isEnabled = email.length > 0 && password.length > 0;
 
     return (
-      <div id="login">
-        <Navbar />
+      <SiteContainer isLoggedIn={this.props.isLoggedIn}>
         <Hero title="Login to your account" subtitle="" />
         {!this.state.loggedIn && (
           <LoginForm
@@ -87,12 +85,7 @@ class Login extends Component {
             handleBlur={this.handleBlur}
           />
         )}
-        <div className="container">
-          {/* add a spacer */}
-          &nbsp;
-        </div>
-        <Footer />
-      </div>
+      </SiteContainer>
     );
   }
 }

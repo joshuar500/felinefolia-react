@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { NavCta } from './NavCta';
-import { useOnlineStatus } from '../hooks/useOnlineStatus';
 
 import logo from '../img/felinefolia_logo.png';
 
-export function Navbar() {
-  const isOnline = useOnlineStatus();
+export function Navbar(props) {
+  // this needs to be removed.
+  const isOnline = props.isLoggedIn;
 
   function getNav() {
     return (

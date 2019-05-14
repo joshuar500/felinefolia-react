@@ -26,6 +26,5 @@ export function useOnlineStatus() {
         handleStatusChange(false);
       });
   }, []);
-  console.log('isOnline', isOnline);
   return isOnline;
 }

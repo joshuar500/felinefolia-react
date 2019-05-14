@@ -143,21 +143,6 @@ export function ResetPasswordForm(props) {
   );
 }
 
-// check validity
-ShippingSchema.validate({
-  name: '1',
-  address1: '124124',
-  address2: '41241',
-  city: '123444',
-  zip: '1234'
-})
-  .then(function(valid) {
-    console.log('valid', valid); // => true
-  })
-  .catch(function(err) {
-    console.log('err', err);
-  });
-
 export function ShippingForm(props) {
   return (
     <div className="column is-6 is-offset-2">
@@ -344,7 +329,7 @@ export function PaymentForm(props) {
         }}
         onSubmit={values => {
           props.handleStateChange(values);
-          props.handleNextStep();
+          props.handleSubmit();
         }}
         render={({ values }) => (
           <Form>
@@ -421,7 +406,7 @@ export function PaymentForm(props) {
               Previous
             </button>{' '}
             <button type="submit" className="button is-primary">
-              Review Order
+              PAY NOW
             </button>
           </Form>
         )}
