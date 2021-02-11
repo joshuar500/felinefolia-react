@@ -5,7 +5,7 @@ export function Footer(props) {
     <footer className="footer">
       <div className="content has-text-centered">
         <p>
-          <strong>&copy; Feline Folia { new Date().getFullYear() }</strong> by <a href="http://joshrincon.com">Josh Rincon</a> &amp; <a>Cayla Ramirez</a>.
+          <strong>&copy; { new Date().getFullYear() } Feline Folia </strong>
         </p>
         <p>Questions? Comments? <a href="mailto:hello@felinefolia.com">hello@felinefolia.com</a></p>
       </div>

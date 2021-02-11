@@ -4,18 +4,35 @@ export function LeftNavbar(props) {
   return (
     <aside className="column is-2 aside">
       <nav className="menu">
-        <p className="menu-label">
-          General
-        </p>
+        <p className="menu-label">General</p>
         <ul className="menu-list">
-          <li><a className="is-active"><span className="icon is-small"><i className="fa fa-tachometer"></i></span> Dashboard</a></li>
+          <li>
+            <button className="is-active">
+              <span className="icon is-small">
+                <i className="fa fa-tachometer" />
+              </span>{' '}
+              Dashboard
+            </button>
+          </li>
         </ul>
-        <p className="menu-label">
-          Administration
-        </p>
+        <p className="menu-label">Administration</p>
         <ul className="menu-list">
-          <li><a><span className="icon is-small"><i className="fa fa-users"></i></span> Members</a></li>
-          <li><a><span className="icon is-small"><i className="fa fa-pencil-square-o"></i></span> Comments</a></li>
+          <li>
+            <button>
+              <span className="icon is-small">
+                <i className="fa fa-users" />
+              </span>{' '}
+              Members
+            </button>
+          </li>
+          <li>
+            <button>
+              <span className="icon is-small">
+                <i className="fa fa-pencil-square-o" />
+              </span>{' '}
+              Comments
+            </button>
+          </li>
           {/* <li>
             <a className=""><i className="fa fa-cog"></i> Settings</a>
             <ul>
@@ -26,5 +43,5 @@ export function LeftNavbar(props) {
         </ul>
       </nav>
     </aside>
-  )
+  );
 }

@@ -1,0 +1,5 @@
+#subscribe .plan-step {
+  cursor: pointer; }
+  #subscribe .plan-step:hover {
+    text-decoration: underline;
+    color: gray; }

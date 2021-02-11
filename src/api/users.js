@@ -1,5 +1,6 @@
 import { request } from './request';
 
+
 export const getContact = async () => {
   try {
     const response = await request.get('/contact');
@@ -9,9 +10,9 @@ export const getContact = async () => {
   }
 }
 
-export const preRegister = async (email, optional) => {
+export const register = async (email, password) => {
   try {
-    const response = await request.post('/preregister', { email, optional });
+    const response = await request.post('/register', { email, password });
     return await response;
   } catch(error) {
     console.log(error);
@@ -21,6 +22,15 @@ export const preRegister = async (email, optional) => {
 export const login = async(email, password) => {
   try {
     const response = await request.post('/login', { username: email, password });
+    return await response;
+  } catch(error) {
+    console.log(error);
+  }
+}
+
+export const logout = async() => {
+  try {
+    const response = await request.put('/logout');
     return await response;
   } catch(error) {
     console.log(error);
